@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { demoProducts } from "@/jsondb/products"
 import { cn } from "@/lib/utils"
 import { useAtom } from "jotai"
+import { toast } from "sonner"
 import Manage from "@/components/manage"
 
 const Page = () => {
@@ -27,6 +28,7 @@ const Page = () => {
     } else {
       setCart([...cart, { ...product, quantity: 1 }])
     }
+    toast.success("Cart updated");
   }
 
   

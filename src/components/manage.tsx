@@ -1,6 +1,7 @@
 import { jotaiCart } from "@/app/providers"
 import { useAtom } from "jotai"
 import { Minus, Plus } from "lucide-react"
+import { toast } from "sonner";
 
 export interface Props {
     id: string;
@@ -36,6 +37,7 @@ const Manage = (props: Props) => {
             }
           }
         }
+        toast.success(`Successfully ${intent}`);
       }
       return(
         <div className={props.className}>
