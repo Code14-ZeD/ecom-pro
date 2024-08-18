@@ -24,7 +24,7 @@ After installation install dependencies
 
 ```bash
 npm install
-or
+#or
 bun install
 ```
 
@@ -32,7 +32,7 @@ After installation build the application
 
 ```bash
 npm run build
-or
+#or
 bun run build
 ```
 
@@ -40,7 +40,7 @@ After building run the application
 
 ```bash
 npm start
-or 
+#or 
 bun start
 ```
 
