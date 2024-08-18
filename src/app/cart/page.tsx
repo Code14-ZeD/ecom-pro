@@ -2,8 +2,14 @@
 
 import { jotaiCart } from "@/app/providers";
 import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 import { useAtom } from "jotai";
-import { X } from "lucide-react";
+import { CircleHelp, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -36,7 +42,27 @@ export default function Cart() {
       (acc, item) => acc + item.price * item.quantity,
       0,
     );
-    return cartTotal
+
+    let discount = 0;
+
+    if (coupon === "GET10") {
+      discount = cartTotal * 0.9;
+    }
+
+    if (coupon === "OFF500") {
+      discount = cartTotal - 500;
+    }
+
+    return {
+      isDiscounted: discount > 0,
+      discount: discount
+        ? `-₹${Intl.NumberFormat("en-In").format(cartTotal - discount)}`
+        : "₹0",
+      finalPrice:
+        discount > 0
+          ? Intl.NumberFormat("en-In").format(discount)
+          : Intl.NumberFormat("en-In").format(cartTotal),
+    };
   };
 
   return (
@@ -122,11 +148,46 @@ export default function Cart() {
               <dd className="text-sm font-medium text-gray-900">Free</dd>
             </div>
             <div className="flex items-center justify-between border-t border-gray-200 pt-4">
+              <div className="flex text-sm text-gray-600">
+                <span>Coupon</span>{" "}
+                <Popover>
+                  <PopoverTrigger>
+                    <CircleHelp className="ml-1 h-4 w-4 text-gray-400" />
+                  </PopoverTrigger>
+                  <PopoverContent className="w-fit text-center text-xs">
+                    GET10 for 10% off
+                    <br />
+                    OFF500 for ₹500 off
+                  </PopoverContent>
+                </Popover>
+              </div>
+
+              <dd
+                className={cn(
+                  "text-sm font-medium text-gray-900",
+                  total().isDiscounted && "font-medium text-green-600",
+                )}
+              >
+                {total().discount}
+              </dd>
+            </div>
+
+            {cart.length > 0 && (
+              <input
+                className="h-10 w-full rounded-md border border-gray-200 text-center capitalize"
+                value={coupon}
+                onChange={(e) => setCoupon(e.target.value.toUpperCase())}
+                onKeyDown={(e) => e.key === "Enter" && e.preventDefault()}
+                type="text"
+              />
+            )}
+
+            <div className="flex items-center justify-between border-t border-gray-200 pt-4">
               <dt className="text-base font-medium text-gray-900">
                 Order total
               </dt>
               <dd className="text-base font-medium text-gray-900">
-                ₹{Intl.NumberFormat("en-In").format(total())}
+                ₹{total().finalPrice}
               </dd>
             </div>
           </dl>
