@@ -152,7 +152,7 @@ export default function Cart() {
                 <span>Coupon</span>{" "}
                 <Popover>
                   <PopoverTrigger>
-                    <CircleHelp className="ml-1 h-4 w-4 text-gray-400" />
+                    <CircleHelp className="ml-1 h-4 w-4 text-gray-400 animate-bounce" />
                   </PopoverTrigger>
                   <PopoverContent className="w-fit text-center text-xs">
                     GET10 for 10% off
