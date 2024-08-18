@@ -49,3 +49,10 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Deployed
 
 To see the deployed application go to [Hosted Link](https://ecom-pro-beta.vercel.app/)
+
+
+## Features
+- Homepage quantity management
+- Cross tab cart management
+- Fully responsive
+- Coupon functionality
